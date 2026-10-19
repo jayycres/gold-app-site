@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gold App: Train. Track. Community.</title>
+<meta name="description" content="The Gold App brings nutrition, training, coaching and your gym's community together in one app, under your gym's name.">
+<meta property="og:title" content="The Gold App">
+<meta property="og:description" content="Train. Track. Community. One app for your whole gym.">
+<meta property="og:image" content="https://thegoldappcomp.com/img/track.jpg">
+<meta name="theme-color" content="#0b0a08">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,12 86.4,75 13.6,75' fill='%23D4AF37'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0b0a08; --bg2:#14120e; --card:#1c1913; --line:#2e2a20;
+    --gold:#D4AF37; --gold2:#E8C766; --ink:#F4EEDF; --muted:#A9A08C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(11,10,8,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:14px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;font-size:18px}
+  .brand svg{width:30px;height:30px}
+  .spacer{flex:1}
+  .navlink{color:var(--muted);font-size:15px;font-weight:600}
+  .navlink:hover{color:var(--ink)}
+  .lang{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;color:var(--muted);background:none;cursor:pointer}
+  .lang:hover{color:var(--ink);border-color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:13px 22px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-gold{background:var(--gold);color:#1a1405;box-shadow:0 8px 28px rgba(212,175,55,.28)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--gold)}
+  nav .btn{padding:9px 16px;font-size:14px}
+  .brand,.btn{white-space:nowrap}
+  @media (max-width:640px){ .navlink{display:none} nav .wrap{gap:10px} .brand{font-size:16px} nav .btn{padding:8px 13px;font-size:13px} }
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;padding:72px 0 40px}
+  .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:620px;background:radial-gradient(closest-side,rgba(212,175,55,.22),transparent);pointer-events:none}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .kicker{color:var(--gold);font-weight:800;letter-spacing:4px;font-size:13px;text-transform:uppercase}
+  h1{font-size:clamp(40px,6vw,68px);line-height:1.04;letter-spacing:-1.5px;margin:14px 0 18px;font-weight:850}
+  h1 .g{background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:var(--muted);font-size:clamp(17px,2vw,20px);max-width:540px}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+  .pill{border:1px solid var(--line);background:var(--bg2);border-radius:999px;padding:7px 13px;font-size:13px;color:var(--muted);font-weight:600}
+  @media (max-width:860px){ .hero .wrap{grid-template-columns:1fr} .hero{padding-top:44px} }
+
+  /* Phone */
+  .phone{width:min(300px,78vw);aspect-ratio:1179/2240;border-radius:44px;overflow:hidden;border:9px solid #2a251c;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(212,175,55,.25);margin:0 auto}
+  .phone img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+  .hero .phone{width:min(320px,80vw);transform:rotate(2deg)}
+
+  /* Sections */
+  section{padding:84px 0}
+  .center{text-align:center}
+  h2{font-size:clamp(30px,4.2vw,46px);line-height:1.1;letter-spacing:-.8px;font-weight:820;margin:12px 0 14px}
+  .sub{color:var(--muted);font-size:18px;max-width:640px}
+  .center .sub{margin:0 auto}
+
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+  .pillar{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px}
+  .pillar .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(212,175,55,.12);color:var(--gold);font-size:22px;margin-bottom:14px}
+  .pillar h3{font-size:21px;margin-bottom:6px}
+  .pillar p{color:var(--muted);font-size:15.5px}
+  @media (max-width:860px){ .pillars{grid-template-columns:1fr} }
+
+  .feature{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+  .feature:first-of-type{border-top:none}
+  .feature.flip .copy{order:2}
+  .feature .copy h3{font-size:clamp(26px,3vw,34px);line-height:1.15;letter-spacing:-.5px;margin:10px 0 12px}
+  .feature .copy p{color:var(--muted);font-size:17px}
+  .ticks{list-style:none;margin-top:18px;display:grid;gap:10px}
+  .ticks li{display:flex;gap:10px;align-items:flex-start;font-size:16px}
+  .ticks li::before{content:"";flex:0 0 18px;height:18px;margin-top:3px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1405' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat}
+  @media (max-width:860px){ .feature,.feature.flip{grid-template-columns:1fr;gap:28px} .feature.flip .copy{order:0} }
+
+  /* Gyms */
+  .gyms{background:linear-gradient(180deg,var(--bg),var(--bg2))}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+  .gc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px}
+  .gc .n{color:var(--gold);font-weight:850;font-size:15px;letter-spacing:2px}
+  .gc h4{font-size:18px;margin:8px 0 6px}
+  .gc p{color:var(--muted);font-size:15px}
+  @media (max-width:960px){ .cards{grid-template-columns:1fr 1fr} }
+  @media (max-width:560px){ .cards{grid-template-columns:1fr} }
+
+  .cta{margin:0 auto;max-width:880px;text-align:center;background:radial-gradient(120% 140% at 50% 0%,rgba(212,175,55,.22),var(--card) 60%);border:1px solid rgba(212,175,55,.35);border-radius:28px;padding:56px 24px}
+  .cta .ctas{justify-content:center}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+  footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 100 100">
+    <polygon points="50,12 68.2,43.5 50,54 31.8,43.5" fill="#E8C766"/>
+    <polygon points="86.4,75 50,75 50,54 68.2,43.5" fill="#C9A227"/>
+    <polygon points="13.6,75 31.8,43.5 50,54 50,75" fill="#8B6F1F"/>
+    <g stroke="#161410" stroke-width="1.8" stroke-linecap="round"><line x1="50" y1="54" x2="68.2" y2="43.5"/><line x1="50" y1="54" x2="50" y2="75"/><line x1="50" y1="54" x2="31.8" y2="43.5"/></g>
+    <polygon points="50,12 86.4,75 13.6,75" fill="none" stroke="#F1E0A8" stroke-width="2.5" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="brand"><svg><use href="#mark"/></svg>The Gold App</a>
+    <div class="spacer"></div>
+    <a class="navlink" href="#features" data-i18n="nav.features">Features</a>
+    <a class="navlink" href="#gyms" data-i18n="nav.gyms">For gyms</a>
+    <button class="lang" id="lang" aria-label="Español / English">ES</button>
+    <a class="btn btn-gold" href="mailto:support@thegoldappcomp.com?subject=The%20Gold%20App%20for%20my%20gym" data-i18n="nav.cta">Get in touch</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker" data-i18n="hero.kicker">Train · Track · Community</div>
+      <h1 data-i18n-html="hero.title">Your whole gym,<br><span class="g">in one app.</span></h1>
+      <p class="lead" data-i18n="hero.lead">Nutrition, workouts, coaching and your gym's own community, all under your gym's name. Members stay on track. Trainers stay connected. Your gym stays at the center.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="#gyms" data-i18n="hero.cta1">Bring it to your gym</a>
+        <a class="btn btn-ghost" href="#features" data-i18n="hero.cta2">See what's inside</a>
+      </div>
+      <div class="pillrow">
+        <span class="pill" data-i18n="hero.p1">Barcode &amp; photo meal logging</span>
+        <span class="pill" data-i18n="hero.p2">Workout plans</span>
+        <span class="pill" data-i18n="hero.p3">Trainer coaching</span>
+        <span class="pill" data-i18n="hero.p4">Private gym feed</span>
+        <span class="pill" data-i18n="hero.p5">English &amp; Español</span>
+      </div>
+    </div>
+    <div class="phone"><img src="img/track.jpg" alt="The Gold App calorie and macro dashboard"></div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap center">
+    <div class="kicker" data-i18n="pillars.kicker">Everything members need</div>
+    <h2 data-i18n="pillars.title">Three parts. One goal.</h2>
+    <p class="sub" data-i18n="pillars.sub">The Gold App is built around the three things that actually move results.</p>
+    <div class="pillars" style="text-align:left">
+      <div class="pillar"><div class="ic">◆</div><h3 data-i18n="pillars.t1">Track</h3><p data-i18n="pillars.d1">Calories and macros at a glance. Scan a barcode or snap a photo and it's logged.</p></div>
+      <div class="pillar"><div class="ic">▲</div><h3 data-i18n="pillars.t2">Train</h3><p data-i18n="pillars.d2">Plans for every muscle group, fresh exercises on a schedule, and PRs worth celebrating.</p></div>
+      <div class="pillar"><div class="ic">●</div><h3 data-i18n="pillars.t3">Community</h3><p data-i18n="pillars.d3">A private feed, stories and classes just for your gym's members.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:40px">
+    <div class="feature">
+      <div class="copy">
+        <div class="kicker" data-i18n="f1.k">Nutrition</div>
+        <h3 data-i18n="f1.t">Know exactly where your day stands.</h3>
+        <p data-i18n="f1.p">A clear daily picture of calories, protein, carbs and fat, so every meal is a decision, not a guess.</p>
+        <ul class="ticks">
+          <li data-i18n="f1.l1">Log by barcode, photo or search</li>
+          <li data-i18n="f1.l2">Daily goals and weekly progress</li>
+          <li data-i18n="f1.l3">Smart food ratings and suggestions</li>
+        </ul>
+      </div>
+      <div class="phone"><img src="img/track.jpg" alt="Nutrition dashboard" loading="lazy"></div>
+    </div>
+
+    <div class="feature flip">
+      <div class="copy">
+        <div class="kicker" data-i18n="f2.k">Competition prep</div>
+        <h3 data-i18n="f2.t">Built for show day.</h3>
+        <p data-i18n="f2.p">For competitors, Competition Mode plans backward from the show: a countdown, prep macros and the pace to hit stage weight.</p>
+        <ul class="ticks">
+          <li data-i18n="f2.l1">Show-day countdown and prep phases</li>
+          <li data-i18n="f2.l2">Weekly pace and macro check-ins</li>
+          <li data-i18n="f2.l3">Peak week and posing practice</li>
+        </ul>
+      </div>
+      <div class="phone"><img src="img/compete.jpg" alt="Competition Mode countdown and prep calories" loading="lazy"></div>
+    </div>
+
+    <div class="feature">
+      <div class="copy">
+        <div class="kicker" data-i18n="f3.k">Training</div>
+        <h3 data-i18n="f3.t">Every workout, ready when you are.</h3>
+        <p data-i18n="f3.p">Pick a muscle group and go. Routines refresh on a schedule so training never gets stale.</p>
+        <ul class="ticks">
+          <li data-i18n="f3.l1">14 workout categories, from Chest to Home</li>
+          <li data-i18n="f3.l2">Check off sets with a built-in timer</li>
+          <li data-i18n="f3.l3">PR tracking and a plate calculator</li>
+        </ul>
+      </div>
+      <div class="phone"><img src="img/train.jpg" alt="Workout plan by muscle group" loading="lazy"></div>
+    </div>
+
+    <div class="feature flip">
+      <div class="copy">
+        <div class="kicker" data-i18n="f4.k">Community</div>
+        <h3 data-i18n="f4.t">Your gym's own feed.</h3>
+        <p data-i18n="f4.p">Posts, stories, announcements and feedback, visible only to your gym. Moderated by your team.</p>
+        <ul class="ticks">
+          <li data-i18n="f4.l1">Photos, videos and stories</li>
+          <li data-i18n="f4.l2">Gym announcements and member feedback</li>
+          <li data-i18n="f4.l3">Leaderboards and trophies</li>
+        </ul>
+      </div>
+      <div class="phone"><img src="img/community.jpg" alt="Gym community feed" loading="lazy"></div>
+    </div>
+
+    <div class="feature">
+      <div class="copy">
+        <div class="kicker" data-i18n="f5.k">Group training</div>
+        <h3 data-i18n="f5.t">Post a class. Fill it up.</h3>
+        <p data-i18n="f5.p">Trainers post classes with the time, place and spots. Members sign up in one tap and see who else is going.</p>
+      </div>
+      <div class="phone"><img src="img/classes.jpg" alt="Upcoming group training classes" loading="lazy"></div>
+    </div>
+
+    <div class="feature flip">
+      <div class="copy">
+        <div class="kicker" data-i18n="f6.k">For trainers</div>
+        <h3 data-i18n="f6.t">Coach every client from one place.</h3>
+        <p data-i18n="f6.p">See who's on track and who's slipping, send plans and goals, and keep the conversation going between sessions.</p>
+        <ul class="ticks">
+          <li data-i18n="f6.l1">Client dashboard at a glance</li>
+          <li data-i18n="f6.l2">Workout plans and macro targets</li>
+          <li data-i18n="f6.l3">Chat, voice notes and form checks</li>
+        </ul>
+      </div>
+      <div class="phone"><img src="img/coach.jpg" alt="Trainer dashboard" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section id="gyms" class="gyms">
+  <div class="wrap center">
+    <div class="kicker" data-i18n="g.k">For gym owners</div>
+    <h2 data-i18n="g.t">Your gym, your brand, your community.</h2>
+    <p class="sub" data-i18n="g.sub">The Gold App gives your gym its own private space, with your name, logo and colors.</p>
+    <div class="cards" style="text-align:left">
+      <div class="gc"><div class="n">01</div><h4 data-i18n="g.c1t">Your own space</h4><p data-i18n="g.c1">Members join with your gym's code and only see your gym.</p></div>
+      <div class="gc"><div class="n">02</div><h4 data-i18n="g.c2t">Your look</h4><p data-i18n="g.c2">Your logo and brand colors across the app.</p></div>
+      <div class="gc"><div class="n">03</div><h4 data-i18n="g.c3t">No setup fees</h4><p data-i18n="g.c3">Getting started costs nothing, and your gym earns from every member.</p></div>
+      <div class="gc"><div class="n">04</div><h4 data-i18n="g.c4t">Private by design</h4><p data-i18n="g.c4">Members own their data and choose what trainers see.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta">
+      <div class="kicker" data-i18n="c.k">Launching soon</div>
+      <h2 data-i18n="c.t">Become a founding gym.</h2>
+      <p class="sub" data-i18n="c.p">We're opening The Gold App to a small group of founding gyms. Want yours to be one of them?</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="mailto:support@thegoldappcomp.com?subject=Founding%20gym%20inquiry" data-i18n="c.b">Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="brand" style="font-size:15px"><svg style="width:22px;height:22px"><use href="#mark"/></svg>The Gold App</a>
+    <span>© 2026 The Gold App LLC</span>
+    <div class="spacer"></div>
+    <a href="https://jayycres.github.io/gold-app-privacy/terms.html" data-i18n="ft.terms">Terms</a>
+    <a href="https://jayycres.github.io/gold-app-privacy/" data-i18n="ft.privacy">Privacy</a>
+    <a href="mailto:support@thegoldappcomp.com">support@thegoldappcomp.com</a>
+  </div>
+</footer>
+
+<script>
+  const ES = {
+    'nav.features':'Funciones','nav.gyms':'Para gimnasios','nav.cta':'Contáctanos',
+    'hero.kicker':'Entrena · Registra · Comunidad',
+    'hero.title':'Todo tu gimnasio,<br><span class="g">en una app.</span>',
+    'hero.lead':'Nutrición, entrenamientos, coaching y la comunidad de tu gimnasio, todo con el nombre de tu gimnasio. Los miembros avanzan. Los entrenadores se mantienen conectados. Tu gimnasio sigue al centro.',
+    'hero.cta1':'Llévala a tu gimnasio','hero.cta2':'Mira lo que incluye',
+    'hero.p1':'Registro de comidas por código o foto','hero.p2':'Planes de entrenamiento','hero.p3':'Coaching con entrenadores','hero.p4':'Feed privado del gimnasio','hero.p5':'English y Español',
+    'pillars.kicker':'Todo lo que necesitan los miembros','pillars.title':'Tres partes. Una meta.','pillars.sub':'The Gold App se basa en las tres cosas que de verdad dan resultados.',
+    'pillars.t1':'Registra','pillars.d1':'Calorías y macros de un vistazo. Escanea un código o toma una foto y queda registrado.',
+    'pillars.t2':'Entrena','pillars.d2':'Planes para cada grupo muscular, ejercicios nuevos con regularidad y récords que celebrar.',
+    'pillars.t3':'Comunidad','pillars.d3':'Un feed privado, historias y clases solo para los miembros de tu gimnasio.',
+    'f1.k':'Nutrición','f1.t':'Sabe exactamente cómo va tu día.','f1.p':'Una imagen clara de calorías, proteína, carbohidratos y grasa, para que cada comida sea una decisión y no una suposición.','f1.l1':'Registra por código, foto o búsqueda','f1.l2':'Metas diarias y progreso semanal','f1.l3':'Calificaciones y sugerencias de alimentos',
+    'f2.k':'Preparación para competencias','f2.t':'Hecho para el día del show.','f2.p':'Para competidores, el Modo Competencia planifica desde el día del show: cuenta regresiva, macros de preparación y el ritmo para llegar al peso de tarima.','f2.l1':'Cuenta regresiva y fases de preparación','f2.l2':'Ritmo semanal y ajuste de macros','f2.l3':'Peak week y práctica de poses',
+    'f3.k':'Entrenamiento','f3.t':'Cada entrenamiento, listo cuando tú lo estés.','f3.p':'Elige un grupo muscular y empieza. Las rutinas se renuevan con regularidad para que nunca se vuelvan aburridas.','f3.l1':'14 categorías, de Pecho a En casa','f3.l2':'Marca tus series con un cronómetro integrado','f3.l3':'Récords personales y calculadora de discos',
+    'f4.k':'Comunidad','f4.t':'El feed propio de tu gimnasio.','f4.p':'Publicaciones, historias, anuncios y sugerencias, visibles solo para tu gimnasio y moderados por tu equipo.','f4.l1':'Fotos, videos e historias','f4.l2':'Anuncios del gimnasio y sugerencias de miembros','f4.l3':'Clasificaciones y trofeos',
+    'f5.k':'Entrenamiento grupal','f5.t':'Publica una clase. Llénala.','f5.p':'Los entrenadores publican clases con hora, lugar y cupos. Los miembros se inscriben con un toque y ven quién más va.',
+    'f6.k':'Para entrenadores','f6.t':'Entrena a cada cliente desde un solo lugar.','f6.p':'Ve quién va bien y quién se está quedando atrás, envía planes y metas, y mantén la conversación entre sesiones.','f6.l1':'Panel de clientes de un vistazo','f6.l2':'Planes de entrenamiento y metas de macros','f6.l3':'Chat, notas de voz y revisión de técnica',
+    'g.k':'Para dueños de gimnasios','g.t':'Tu gimnasio, tu marca, tu comunidad.','g.sub':'The Gold App le da a tu gimnasio su propio espacio privado, con tu nombre, logo y colores.',
+    'g.c1t':'Tu propio espacio','g.c1':'Los miembros se unen con el código de tu gimnasio y solo ven tu gimnasio.','g.c2t':'Tu imagen','g.c2':'Tu logo y colores de marca en toda la app.','g.c3t':'Sin costos de inicio','g.c3':'Empezar no cuesta nada, y tu gimnasio gana con cada miembro.','g.c4t':'Privado por diseño','g.c4':'Los miembros son dueños de sus datos y eligen qué ven sus entrenadores.',
+    'c.k':'Muy pronto','c.t':'Sé un gimnasio fundador.','c.p':'Estamos abriendo The Gold App a un pequeño grupo de gimnasios fundadores. ¿Quieres que el tuyo sea uno de ellos?','c.b':'Contáctanos',
+    'ft.terms':'Términos','ft.privacy':'Privacidad'
+  };
+  const EN = {};
+  document.querySelectorAll('[data-i18n]').forEach((el) => (EN[el.dataset.i18n] = el.textContent));
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => (EN[el.dataset.i18nHtml] = el.innerHTML));
+  let lang = 'en';
+  try { lang = localStorage.getItem('lang') || ((navigator.language || '').startsWith('es') ? 'es' : 'en'); } catch (e) {}
+  const apply = (l) => {
+    const d = l === 'es' ? ES : EN;
+    document.querySelectorAll('[data-i18n]').forEach((el) => { if (d[el.dataset.i18n]) el.textContent = d[el.dataset.i18n]; });
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => { if (d[el.dataset.i18nHtml]) el.innerHTML = d[el.dataset.i18nHtml]; });
+    document.documentElement.lang = l;
+    document.getElementById('lang').textContent = l === 'es' ? 'EN' : 'ES';
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  };
+  if (lang === 'es') apply('es');
+  document.getElementById('lang').addEventListener('click', () => { lang = lang === 'es' ? 'en' : 'es'; apply(lang); });
+</script>
+</body>
+</html>
