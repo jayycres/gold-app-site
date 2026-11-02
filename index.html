@@ -95,6 +95,19 @@
   .cta{margin:0 auto;max-width:880px;text-align:center;background:radial-gradient(120% 140% at 50% 0%,rgba(212,175,55,.22),var(--card) 60%);border:1px solid rgba(212,175,55,.35);border-radius:28px;padding:56px 24px}
   .cta .ctas{justify-content:center}
 
+  /* Member ask bar (under the nav) */
+  .ask{background:linear-gradient(90deg,rgba(212,175,55,.16),rgba(212,175,55,.06));border-bottom:1px solid rgba(212,175,55,.3)}
+  .ask .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;padding-top:12px;padding-bottom:12px;text-align:center}
+  .ask-q{font-size:15px}
+  .ask-q span{color:var(--muted)}
+  .ask-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .ask .btn{padding:9px 16px;font-size:14px;font-family:inherit;cursor:pointer;border:none}
+  .ask .btn-ghost{background:none;border:1px solid var(--line)}
+  .ask input{background:var(--bg2);border:1px solid var(--line);border-radius:999px;color:var(--ink);padding:9px 16px;font-size:14px;font-family:inherit;min-width:220px;outline:none}
+  .ask input:focus{border-color:var(--gold)}
+  .ask-done{color:var(--gold2);font-weight:700;font-size:15px}
+  [hidden]{display:none!important}
+
   footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--muted);font-size:14px}
   footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
   footer a:hover{color:var(--ink)}
@@ -122,6 +135,21 @@
     <a class="btn btn-gold" href="mailto:support@thegoldappcomp.com?subject=The%20Gold%20App%20for%20my%20gym" data-i18n="nav.cta">Get in touch</a>
   </div>
 </nav>
+
+<div class="ask" id="ask">
+  <div class="wrap">
+    <div class="ask-q"><strong data-i18n="ask.t">Members: want The Gold App?</strong> <span data-i18n="ask.s">Tap one so we know.</span></div>
+    <div class="ask-row" id="askBtns">
+      <button class="btn btn-gold" data-kind="my_gym" data-i18n="ask.gym">I want it at my gym</button>
+      <button class="btn btn-ghost" data-kind="no_gym" data-i18n="ask.solo">I'd use it on my own</button>
+    </div>
+    <form class="ask-row" id="askGym" hidden>
+      <input id="gymName" maxlength="120" autocomplete="organization" data-i18n-ph="ask.ph" placeholder="Your gym's name (optional)">
+      <button class="btn btn-gold" type="submit" data-i18n="ask.send">Count me in</button>
+    </form>
+    <div class="ask-done" id="askDone" hidden data-i18n="ask.done">Thanks, you're counted! Share this page with your gym owner.</div>
+  </div>
+</div>
 
 <header class="hero">
   <div class="wrap">
@@ -298,23 +326,57 @@
     'g.k':'Para dueños de gimnasios','g.t':'Tu gimnasio, tu marca, tu comunidad.','g.sub':'The Gold App le da a tu gimnasio su propio espacio privado, con tu nombre, logo y colores.',
     'g.c1t':'Tu propio espacio','g.c1':'Los miembros se unen con el código de tu gimnasio y solo ven tu gimnasio.','g.c2t':'Tu imagen','g.c2':'Tu logo y colores de marca en toda la app.','g.c3t':'Sin costos de inicio','g.c3':'Empezar no cuesta nada, y tu gimnasio gana con cada miembro.','g.c4t':'Privado por diseño','g.c4':'Los miembros son dueños de sus datos y eligen qué ven sus entrenadores.',
     'c.k':'Muy pronto','c.t':'Sé un gimnasio fundador.','c.p':'Estamos abriendo The Gold App a un pequeño grupo de gimnasios fundadores. ¿Quieres que el tuyo sea uno de ellos?','c.b':'Contáctanos',
-    'ft.terms':'Términos','ft.privacy':'Privacidad'
+    'ft.terms':'Términos','ft.privacy':'Privacidad',
+    'ask.t':'Miembros: ¿quieren The Gold App?','ask.s':'Toca una opción para saberlo.','ask.gym':'La quiero en mi gimnasio','ask.solo':'La usaría por mi cuenta',
+    'ask.ph':'Nombre de tu gimnasio (opcional)','ask.send':'Cuéntame','ask.done':'¡Gracias, ya te contamos! Comparte esta página con el dueño de tu gimnasio.'
   };
   const EN = {};
   document.querySelectorAll('[data-i18n]').forEach((el) => (EN[el.dataset.i18n] = el.textContent));
   document.querySelectorAll('[data-i18n-html]').forEach((el) => (EN[el.dataset.i18nHtml] = el.innerHTML));
+  document.querySelectorAll('[data-i18n-ph]').forEach((el) => (EN[el.dataset.i18nPh] = el.placeholder));
   let lang = 'en';
   try { lang = localStorage.getItem('lang') || ((navigator.language || '').startsWith('es') ? 'es' : 'en'); } catch (e) {}
   const apply = (l) => {
     const d = l === 'es' ? ES : EN;
     document.querySelectorAll('[data-i18n]').forEach((el) => { if (d[el.dataset.i18n]) el.textContent = d[el.dataset.i18n]; });
     document.querySelectorAll('[data-i18n-html]').forEach((el) => { if (d[el.dataset.i18nHtml]) el.innerHTML = d[el.dataset.i18nHtml]; });
+    document.querySelectorAll('[data-i18n-ph]').forEach((el) => { if (d[el.dataset.i18nPh]) el.placeholder = d[el.dataset.i18nPh]; });
     document.documentElement.lang = l;
     document.getElementById('lang').textContent = l === 'es' ? 'EN' : 'ES';
     try { localStorage.setItem('lang', l); } catch (e) {}
   };
   if (lang === 'es') apply('es');
   document.getElementById('lang').addEventListener('click', () => { lang = lang === 'es' ? 'en' : 'es'; apply(lang); });
+
+  // "Want The Gold App?" bar: each tap adds one row to Supabase (member_interest).
+  // No email, no sign-in; the browser remembers so one person counts once.
+  const SB_URL = 'https://jdqksuiggdkjeomowhdn.supabase.co';
+  const SB_KEY = 'sb_publishable_6rVKIwpEDkjPYyTcNVwFeQ_0Gue86nj';
+  const askBtns = document.getElementById('askBtns');
+  const askGym = document.getElementById('askGym');
+  const askDone = document.getElementById('askDone');
+  const showDone = () => { askBtns.hidden = true; askGym.hidden = true; askDone.hidden = false; };
+  let counted = false;
+  try { counted = localStorage.getItem('askCounted') === '1'; } catch (e) {}
+  if (counted) showDone();
+  const countMe = (kind, gym) => {
+    fetch(SB_URL + '/rest/v1/member_interest', {
+      method: 'POST',
+      headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ kind, gym_name: gym || null, lang }),
+    }).catch(() => {});
+    try { localStorage.setItem('askCounted', '1'); } catch (e) {}
+    showDone();
+  };
+  askBtns.addEventListener('click', (e) => {
+    const kind = e.target.closest('button') && e.target.closest('button').dataset.kind;
+    if (kind === 'no_gym') countMe('no_gym');
+    if (kind === 'my_gym') { askBtns.hidden = true; askGym.hidden = false; document.getElementById('gymName').focus(); }
+  });
+  askGym.addEventListener('submit', (e) => {
+    e.preventDefault();
+    countMe('my_gym', document.getElementById('gymName').value.trim().slice(0, 120));
+  });
 </script>
 </body>
 </html>
